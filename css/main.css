@@ -1,0 +1,29 @@
+body {
+  background-color: #eff4f9;
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+}
+
+.shItem {
+  width: auto;
+  padding: 7px;
+  display: inline-block;
+  position: relative;
+  margin: 0px 10px 10px 0px;
+  border-radius: 4px;
+}
+
+.shItem:last-child {
+  margin-right: 0px !important;
+}
+
+.shItem .close {
+  position: absolute;
+  top: -12px;
+  right: -7px;
+}
