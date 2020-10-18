@@ -43,6 +43,13 @@ body {
   position: relative;
 }
 
+.card-title {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .card-img-top {
   max-height: 330px;
 }

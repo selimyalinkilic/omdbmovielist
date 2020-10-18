@@ -120,7 +120,7 @@ let moviesController = {
           let title = movie.Title,
               image = movie.Poster !== undefined && movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x445' ,
               year = movie.Year !== undefined && movie.Year !== 'N/A' ? movie.Year : '-';
-          output += `<div class="col col-12 col-sm-2 col-md-3 cardContent">
+          output += `<div class="col col-12 col-sm-6 col-md-3 cardContent">
           <div class="card" style="width: 100%;">
             <img src="${image}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -238,7 +238,7 @@ let moviesController = {
               image = movie.poster,
               year = movie.year,
               id = movie.id;
-          output += `<div class="col col-12 col-sm-2 col-md-3 cardContent">
+          output += `<div class="col col-12 col-sm-6 col-md-3 cardContent">
           <div class="card" style="width: 100%;">
             <img src="${image}" class="card-img-top" alt="...">
             <div class="card-body">
