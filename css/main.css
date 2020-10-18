@@ -34,3 +34,38 @@ body {
   right: 10px;
   bottom: 10px;
 }
+
+.cardContent {
+  margin-bottom: 20px;
+}
+
+.card {
+  position: relative;
+}
+
+.card-img-top {
+  max-height: 330px;
+}
+
+.btnFav {
+  width: 42px !important;
+  height: 30px !important;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bi-heart-fill {
+  display: none;
+}
+
+.btnFav.added .bi-heart {
+  display: none;
+}
+
+.btnFav.added .bi-heart-fill {
+  display: block;
+}
