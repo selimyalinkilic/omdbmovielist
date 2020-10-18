@@ -27,7 +27,7 @@ let moviesController = {
       movies.push(item);
       this.saveMoviesToStorage(movies);
     },
-    removeMovieToStorage: function(key){ // removing from history and storage
+    removeMovieToStorage: function(key){ // removing from storage
       let movies = JSON.parse(localStorage.getItem("movies"));
       for (let i in movies){
         if(movies[i].id == key){          
@@ -35,6 +35,12 @@ let moviesController = {
         }        
       }
       this.saveMoviesToStorage(movies);
+    },
+    removeMovieToHistory : function(){ // removing from history html
+      let key = $(this).attr("key");    
+      moviesController.functions.removeMovieToStorage(key);
+      moviesController.functions.displayMovieToHistory();
+      moviesController.functions.showAlert("success", "The search word removed from history.");
     },
     listMovies: function(){ // array of search list
       let movieCopy = [];
@@ -60,13 +66,17 @@ let moviesController = {
           let id = movie.id;
           output += `<div class="shItem bg-primary">
           <span class="shText text-white">${name}</span>
-          <button type="button" class="close" aria-label="Close" key="${id}">
+          <button type="button" class="close remove" aria-label="Close" key="${id}">
             <span aria-hidden="true">&times;</span>
           </button>
          </div>`;
         }
       }
-      $(".searchHistory").html(output);      
+      $(".searchHistory").html(output);
+      let btn = document.getElementsByClassName('remove');
+      for(let i = 0; i < btn.length; i++){
+        btn[i].addEventListener("click", this.removeMovieToHistory);
+      }  
     },
     showAlert: function(type, message){ // creating custom alert
       let searchHistoryBody = $(".alertContainer");
@@ -84,11 +94,11 @@ let moviesController = {
   }
 }
 
-moviesController.init();
 
 $(document).ready(function () {
-
-  $("#searchButton").on("click", function (e) {        
+  moviesController.init();
+  $("#searchButton").click(function (e) {
+    moviesController.functions.listMovies();     
     const name = $("#searchText").val(); // getting value from input
     if(name == ""){ // input null control
       moviesController.functions.showAlert("danger", "Please enter a movie");
@@ -100,9 +110,8 @@ $(document).ready(function () {
         moviesController.functions.showAlert("danger", "The search word must be longer than 3 characters");
       }
     }
-    e.preventDefault();
+    e.preventDefault();    
     moviesController.functions.displayMovieToHistory(); // showing all search on history html
   });
-  
 
 });
