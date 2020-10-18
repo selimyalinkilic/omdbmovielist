@@ -93,6 +93,12 @@ let moviesController = {
         $(".alert").hide(); 
       }, 2500);
     },
+    inActiveButton: function(){
+      $("#searchButton").addClass("disabled");      
+    },
+    activeButton: function(){
+      $("#searchButton").removeClass("disabled");      
+    },
     getMoviesOnApi : function(name){ // getting movies from api
       if(name){
         $.getJSON(`https://www.omdbapi.com/?s=${name}&type=movie&apikey=62f90678`, function(data){
@@ -270,16 +276,16 @@ let moviesController = {
 
 
 $(document).ready(function () {  
-  moviesController.init();
+  moviesController.init();  
   $("#searchButton").click(function (e) {
-    moviesController.functions.listMovies();     
-    const name = $("#searchText").val(); // getting value from input
+    let name = $("#searchText").val(); // getting value from input
+    moviesController.functions.listMovies();         
     if(name == ""){ // input null control
       moviesController.functions.showAlert("danger", "Please enter a movie");
     }else{
       if(name.length >= 3){ // controlling input value length 
-        moviesController.functions.addMovieToStorage(name);        
-        moviesController.functions.getMoviesOnApi(name);
+        moviesController.functions.addMovieToStorage(name);
+        moviesController.functions.getMoviesOnApi(name);          
         $("#searchText").val("");
       }else{
         moviesController.functions.showAlert("danger", "The search word must be longer than 3 characters");
@@ -288,5 +294,23 @@ $(document).ready(function () {
     e.preventDefault();    
     moviesController.functions.displayMovieToHistory(); // showing all search on history html
   });
+
+  $("#searchText").keydown(function() {
+    let name = $("#searchText").val(); // getting value from input
+    if(name.length >= 3 ){
+      moviesController.functions.activeButton();
+      moviesController.functions.getMoviesOnApi(name);
+    }else{      
+      moviesController.functions.inActiveButton();
+      $(".movies .row").html("")
+    }
+  });
+
+  $(".shItem").on("click", function(){ // search history buttons click action
+    let text = $(this).find(".shText").html();
+    $(".movies .row").html("");
+    moviesController.functions.getMoviesOnApi(text);
+  }); 
+  
 
 });
