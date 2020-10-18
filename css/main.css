@@ -27,3 +27,10 @@ body {
   top: -12px;
   right: -7px;
 }
+
+.alert {
+  max-width: 300px;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+}
